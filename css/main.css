@@ -1,0 +1,137 @@
+body{
+	background: lavenderblush;
+	-webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+.height {
+	background: lavenderblush;
+	height:60px;
+}
+.height1{
+	border: 5px;
+	height:160px;
+	margin-top:30px;
+	margin-right:60px;
+	text-align: center;
+}
+
+.img {
+	max-height: 160px;
+	
+}
+
+.main {
+	font-size: 2em;
+	float: left;
+	width: 67%;
+	background: lavenderblush;
+}
+.mainside {
+	float: right;
+	width: 33%;
+	background: lavenderblush;
+}
+
+canvas {
+	cursor: pointer;
+	border: 1px solid black;
+	background: seashell;
+	margin: 10px 50px 10px 50px;
+}
+
+.command-input {
+	background: lavenderblush;
+	height: 50px;
+	border: none;
+	font-size: 2em;
+	top: 3px;
+	width: 120px;
+	border:0 3px 0 0;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+label {
+	margin-top:6px;
+	margin-bottom: 6px;
+}
+.label,
+.label:hover {
+	padding-top: 6px;
+	text-align:left;
+	width:  80px;
+	font-size: 1.5em;
+	font-weight: 900;
+	color: black;
+	display: inline-block;
+
+}
+
+.label1,
+.label1:hover {
+	padding-top: 6px;
+	text-align: center;
+	width: 95%;
+	height: 50px;
+	font-size: 2em;
+	font-weight: 900;
+	color: white;
+	display: inline-block;
+	background-color: royalblue;
+}
+
+.label2,
+.label2:hover {
+	padding-top: 6px;
+	text-align: center;
+	width: 95%;
+	height: 50px;
+	font-size: 2em;
+	font-weight: 900;
+	color: white;
+	display: inline-block;
+	background-color: red;
+}
+
+.label3,
+.label3:hover {
+	float:left;
+	margin-left:3px;
+	padding-top: 3px;
+	text-align: center;
+	width: 50px;
+	height: 30px;
+	font-size: 1.3em;
+	font-weight: 900;
+	color: rgb(255, 0, 0);
+	display: inline-block;
+	background-color:lavenderblush;
+}
+
+
+.label4,
+.label4:hover {
+	float:left;
+	margin-left:3px;
+	padding-top: 3px;
+	text-align: center;
+	width: 50px;
+	height: 30px;
+	font-size: 1.3em;
+	font-weight: 900;
+	color: lavenderblush;
+	display: inline-block;
+	background-color:rgb(255, 0, 0);
+}
+
+

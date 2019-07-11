@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>可视化编辑0.2</title>
+<script type="text/javascript" src="js/lib/jszip.min.js"></script>
+<script type="text/javascript" src="js/lib/FileSaver.js"></script>
+<script type="text/javascript" src="js/lib/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<input id="fileinput" class="inputfile" type="file" multiple onchange="uploadimgs()"/>
+<input class="inputfile"  type="file" name = "file" onchange="loaddata()" id = "fileId" /> 
+<img src="" id="preview"  alt="" hidden></img>
+<div class="height">
+	<div class="col-md-2">
+		<label class="label1" for="fileinput">选择图片</label>
+	</div>
+	<div class="col-md-2">
+		<label class="label1" onclick="Db.save(1);">保存数据</label>
+	</div>
+	<div class="col-md-2">
+		<label class="label1" onclick="Db.clear(1);">清除数据</label>
+	</div>
+	<div class="col-md-2">
+		<label for="fileId" class="label1">导入数据</label>
+	</div>
+	<div class="col-md-2">
+		<label class="label1" onclick="Dc.downloaddata()">导出数据</label>
+	</div>
+	<div class="col-md-2">
+		<label class="label1" onclick="Dc.download()">导出工程</label>
+	</div>
+</div>
+<div class="main">
+	<canvas id="canvas" width="960" height="540"></canvas>
+</div>
+<div class="mainside">
+	<div id="main" class="sidebar">
+		<div class="col-md-12">
+			<div v-for="(img, index) in imgs">
+				<div v-if="index==idindex">
+					<label class="label4 btn" v-bind:id="index" onclick="selectimg(this.id)">{{index+1}}</label>
+				</div>
+				<div v-if="index!=idindex">
+					<label class="label3 btn" v-bind:id="index" onclick="selectimg(this.id)">{{index+1}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 height1">
+			<img id="image" class="img" src=""/>
+		</div>
+		<div class="col-md-12" v-if="imgselected">
+			<div class="col-md-6">
+				<label class="label">名称: </label><input class="command-input" type="text" onchange="drawimgs();" v-model="imgselected.name"><br>
+				<label class="label">X坐标: </label><input class="command-input" type="number" onchange="drawimgs();" min="0" max="960" v-model="imgselected.x"><br>
+				<label class="label">Y坐标: </label><input class="command-input" type="number" onchange="drawimgs();" min="0" max="540" v-model="imgselected.y">
+			</div>
+			<div class="col-md-6">
+				<div class="col-md-6">
+					<label class="label">固定: </label>
+				</div>
+				<div class="col-md-6">
+					<label for="locked" v-if="imgselected.locked" class="label"><b>开</b></label>
+					<label for="locked" v-if="!imgselected.locked" class="label"><b>关</b></label>
+					<input id="locked" type="checkbox" v-model="imgselected.locked" hidden>
+				</div>
+				<label class="label1" onclick="addselected()">添加</label>
+				<label class="label2" onclick="clearselected();">清除</label>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="js/lib/vue.js"></script>
+<script src="js/main.js"></script>
+<script src="https://js.fundebug.cn/fundebug.1.9.0.min.js" apikey="de3805b6d5d25369e7654664f3b96c2bd29e7020d70dcb6a0a58b2675b9b7b44"></script>
+</body>
+</html>
