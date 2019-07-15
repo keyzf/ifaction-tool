@@ -12,70 +12,108 @@
 <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-<input id="fileinput" class="inputfile" type="file" multiple onchange="uploadimgs()"/>
-<input class="inputfile"  type="file" name = "file" onchange="loaddata()" id = "fileId" /> 
-<img src="" id="preview"  alt="" hidden></img>
-<div class="height">
-	<div class="col-md-2">
-		<label class="label1" for="fileinput">选择图片</label>
-	</div>
-	<div class="col-md-2">
-		<label class="label1" onclick="Db.save(1);">保存数据</label>
-	</div>
-	<div class="col-md-2">
-		<label class="label1" onclick="Db.clear(1);">清除数据</label>
-	</div>
-	<div class="col-md-2">
-		<label for="fileId" class="label1">导入数据</label>
-	</div>
-	<div class="col-md-2">
-		<label class="label1" onclick="Dc.downloaddata()">导出数据</label>
-	</div>
-	<div class="col-md-2">
-		<label class="label1" onclick="Dc.download()">导出工程</label>
-	</div>
-</div>
-<div class="main">
-	<canvas id="canvas" width="960" height="540"></canvas>
-</div>
-<div class="mainside">
-	<div id="main" class="sidebar">
-		<div class="col-md-12">
-			<div v-for="(img, index) in imgs">
-				<div v-if="index==idindex">
-					<label class="label4 btn" v-bind:id="index" onclick="selectimg(this.id)">{{index+1}}</label>
-				</div>
-				<div v-if="index!=idindex">
-					<label class="label3 btn" v-bind:id="index" onclick="selectimg(this.id)">{{index+1}}</label>
-				</div>
+<div id="main">
+	<div class="height">
+		<div class="dropdown col-md-2">
+			<label class="label1">编辑</label>
+			<div class="dropdown-content">
+					<label class="label1" onclick="uploadimgs('','text')">添加文字</label>
+				<label class="label1" for="fileinput1">添加精灵	
+				<input id="fileinput1" class="inputfile" type="file" multiple onchange="uploadimgs('fileinput1','sprite')"/>
+				</label>
+				<label class="label1" for="fileinput2">添加按钮
+				<input id="fileinput2" class="inputfile" type="file" multiple onchange="uploadimgs('fileinput2','button')"/>
+				</label>
+
 			</div>
 		</div>
-		<div class="col-md-12 height1">
-			<img id="image" class="img" src=""/>
-		</div>
-		<div class="col-md-12" v-if="imgselected">
-			<div class="col-md-6">
-				<label class="label">名称: </label><input class="command-input" type="text" onchange="drawimgs();" v-model="imgselected.name"><br>
-				<label class="label">X坐标: </label><input class="command-input" type="number" onchange="drawimgs();" min="0" max="960" v-model="imgselected.x"><br>
-				<label class="label">Y坐标: </label><input class="command-input" type="number" onchange="drawimgs();" min="0" max="540" v-model="imgselected.y">
+		<div class="dropdown col-md-2">
+			<label class="label1">数据操作</label>
+			<div class="dropdown-content">
+				<label class="label1" onclick="Db.save(1);">保存数据</label>
+				<label class="label1" onclick="Db.clear(1);">清除数据</label>
+				<label for="fileId" class="label1">导入数据	
+				<input class="inputfile" type="file" name="file" onchange="Db.loaddata()" id ="fileId"/>
+				</label>
+				<label class="label1" onclick="Db.downloaddata()">导出数据</label>
 			</div>
-			<div class="col-md-6">
-				<div class="col-md-6">
-					<label class="label">固定: </label>
-				</div>
-				<div class="col-md-6">
-					<label for="locked" v-if="imgselected.locked" class="label"><b>开</b></label>
-					<label for="locked" v-if="!imgselected.locked" class="label"><b>关</b></label>
-					<input id="locked" type="checkbox" v-model="imgselected.locked" hidden>
-				</div>
-				<label class="label1" onclick="addselected()">添加</label>
-				<label class="label2" onclick="clearselected();">清除</label>
+		</div>
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-2">
+			<label class="label1" onclick="Db.download()">导出工程</label>
+		</div>
+	</div>
+	<div class="main">
+		<br>
+		<canvas id="canvas" width="960" height="540"></canvas>
+	</div>
+	<div class="mainside">
+		<br>
+		<br>
+		<br>
+		<div class="sidebar">
+			<div class="col-md-1">
+			</div>
+			<div class="col-md-11 height2">
+				<label v-if="imgselected.type=='button'||imgselected.type=='sprite'" for="" class="label col-md-3">图片: </label>
+				<input class="inputfile" type="file" onchange="change('fileinput3',1)" id ="fileinput3"/>
+				<label class="height1 col-md-9" for="fileinput3"><img id="image" class="img" src="" style="cursor:pointer"/></label>
+				<label for="" v-if="imgselected.type=='button'" class="label col-md-3">按下时: </label>
+				<input class="inputfile" type="file" onchange="change('fileinput4',2)" id ="fileinput4"/>
+				<label class="height1 col-md-9" for="fileinput4"><img id="image2" class="img" src="" style="cursor:pointer"/></label>
+				<label for="" v-if="imgselected.type=='button'" class="label col-md-3">禁用时: </label>
+				<input class="inputfile" type="file" onchange="change('fileinput5',3)" id ="fileinput5"/>
+				<label class="height1 col-md-9" for="fileinput5"><img id="image3" class="img" src="" style="cursor:pointer"/></label>
+			</div>
+			<div class="col-md-1">
+			</div>
+			<div class="col-md-11" v-if="imgselected">
+					<label v-if="imgselected.type=='text'" class="label">文字</label>
+					<input v-if="imgselected.type=='text'" class="command-input" style="width:350px" type="text" onchange="drawimgs()" v-model="imgselected.img.str"/><br>
+					<label v-if="imgselected.type=='text'" class="label">颜色:</label>
+				<input v-if="imgselected.type=='text'" type="color" style="width:120px" onchange="drawimgs()" v-model="imgselected.img.color"/>
+				<label v-if="imgselected.type=='text'" class="label">大小:</label>
+				<input v-if="imgselected.type=='text'" class="command-input" type="number" onchange="drawimgs()" v-model="imgselected.img.size"/><br>
+				<label class="label">名称: </label><input class="command-input" type="text" v-model="imgselected.name">
+				<label class="label">类型: </label>
+				<label v-if="imgselected.type=='sprite'" class="label"><b>精灵</b></label>
+				<label v-if="imgselected.type=='button'" class="label"><b>按钮</b></label>
+				<label v-if="imgselected.type=='text'" class="label"><b>文字</b></label>
+				<br>
+				<label class="label">X坐标: </label><input class="command-input" type="number" min="0" max="960" v-model="imgselected.x">
+				<label class="label">Y坐标: </label><input class="command-input" type="number" min="0" max="540" v-model="imgselected.y">
+				<br>
+				<input id="locked" type="checkbox" v-model="imgselected.locked" hidden>
+				<label class="label">可拖拽: </label>
+				<label for="locked" v-if="imgselected.locked" class="label" style="cursor:pointer"><b>关</b></label>
+				<label for="locked" v-if="!imgselected.locked" class="label" style="cursor:pointer"><b>开</b></label>
+				<br>
+				<label class="label" style="cursor:pointer;color:blue" @click="addselected()">添加</label>
+				<label class="label" style="cursor:pointer;color:red" @click="clearselected()">清除</label>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12 topbar">
+		<div v-for="(img, index) in imgs">
+			<div v-if="index==idindex">
+				<label class="label4 btn" v-bind:id="index" onclick="selectimg(this.id)">{{index+1}}</label>
+			</div>
+			<div v-if="index!=idindex">
+				<label class="label3 btn" v-bind:id="index" onclick="selectimg(this.id)">{{index+1}}</label>
 			</div>
 		</div>
 	</div>
 </div>
 <script src="js/lib/vue.js"></script>
+<script src="js/lib/vue-router.js"></script>
 <script src="js/main.js"></script>
-<script src="https://js.fundebug.cn/fundebug.1.9.0.min.js" apikey="de3805b6d5d25369e7654664f3b96c2bd29e7020d70dcb6a0a58b2675b9b7b44"></script>
+
 </body>
 </html>
