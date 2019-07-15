@@ -292,10 +292,16 @@ function showtextcolor(value) {
 		},
 		watch: {
 			imgs() {
-				if (sleep(3)) drawimgs()
+				if (this.imgselected.type == "text") {
+					this.imgselected.img.height = Number(this.imgselected.img.size);
+					ctx2.font = "" + this.imgselected.img.size+ "px normal";
+					this.imgselected.img.width = ctx2.measureText(this.imgselected.img.str).width;
+		
+				}
+				if (sleep(100)) drawimgs()
 			}, imgselected() {
 				if (this.imgselected.type == "text") {
-					this.imgselected.img.height = this.imgselected.img.size;
+					this.imgselected.img.height = Number(this.imgselected.img.size);
 					ctx2.font = "" + this.imgselected.img.size+ "px normal";
 					this.imgselected.img.width = ctx2.measureText(this.imgselected.img.str).width;
 		
@@ -315,7 +321,7 @@ function showtextcolor(value) {
 				};
 			}, sumxy() {
 				if (this.imgselected.type == "text") {
-					this.imgselected.img.height = this.imgselected.img.size;
+					this.imgselected.img.height = Number(this.imgselected.img.size);
 					ctx2.font = "" + this.imgselected.img.size+ "px normal";
 					this.imgselected.img.width = ctx2.measureText(this.imgselected.img.str).width;
 		
@@ -339,7 +345,6 @@ function showtextcolor(value) {
 
 
 
-
 /*-------------------------------- 拖拽控制 --------------------------------------*/
 ;
 (function() {
@@ -358,19 +363,22 @@ function showtextcolor(value) {
 		var clickY = e.pageY - canvas.offsetTop;
 		// 上一个选中的
 		b = main._data.imgselected;
+
 		//遍历所有图片，查找下次选中的图片
 		for (var i = 0; i < main._data.imgs.length; i++) {
-			a = main._data.imgs[i];
-			if (clickX >= a.x && clickX <= a.x + a.img.width && clickY >= a.y && clickY <= a.y + a.img.height) {
+	
+			a = main._data.imgs[i];		
+
+			if (clickX >= Number(a.x) && clickX <= Number(a.x) + Number(a.img.width) && clickY >= Number(a.y) && clickY <= Number(a.y) + Number(a.img.height)) {
 				//更新选中的图片
 				main._data.imgselected = a;
 				//预览
 				main._data.idindex = main._data.imgs.indexOf(main._data.imgselected)
 
 				//可拖拽
-				main._data.isDragging = true;
+				main._data.isDragging = true;	
 				//结束遍历
-				if (a.locked) return;
+			 if(!a.locked) return;
 			}
 		}
 	}
